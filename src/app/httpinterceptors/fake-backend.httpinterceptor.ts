@@ -8,10 +8,9 @@ export class FakeBackendHttpInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
 
-        // wrap in delayed observable to simulate server api call
         return of(null)
             .pipe(mergeMap(handleRoute))
-            .pipe(materialize()) // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
+            .pipe(materialize())
             .pipe(delay(500))
             .pipe(dematerialize());
 
@@ -19,7 +18,7 @@ export class FakeBackendHttpInterceptor implements HttpInterceptor {
             switch (true) {
                 case url.endsWith('/search/') && method === 'GET':
                     return search();
-               
+
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -28,10 +27,8 @@ export class FakeBackendHttpInterceptor implements HttpInterceptor {
 
         // route functions
         function search() {
-            const user = body
-
-            return of(new HttpResponse({status: 200, body: {id: "1"}}));
-        }      
+            return of(new HttpResponse({ status: 200, body: { id: "1" } }));
+        }
     }
 }
 
