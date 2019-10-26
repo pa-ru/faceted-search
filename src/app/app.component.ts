@@ -1,21 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'faceted-search';
-  $data: Observable<any>;
-
-  constructor(private http: HttpClient) {
-
-  }
-
-  ngOnInit() { 
-    this.$data = this.http.get('/search/');
-  }
+  
 }

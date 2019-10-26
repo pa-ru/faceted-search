@@ -1,0 +1,148 @@
+/**  Header
+ *   .dna-header            // Outer Container - All of the header
+ *     .dna-header-body       // Header body with paddings
+ *       .dna-header-icon       // Programm-icon
+ *       .dna-header-item       // Generic item
+ *
+ */
+@import "variables.scss";
+@import "dna-mixins";
+
+// Variables
+$dna-header-icon-margin-right: .6rem;
+$dna-header-icon-size: 3.2rem;
+
+//## Base-class for Header
+.dna-header {
+    width: 100%;
+    position: relative;
+
+    .dropdown-menu {
+        z-index: $dna-zindex-header + 1;
+    }
+}
+
+.dna-header-body {
+    padding: $dna-header-xs-padding-vertical $dna-header-xs-padding-horizontal;
+}
+
+//## Standard Content of header
+.dna-header-icon,
+.dna-header-item {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.dna-header-item,
+.dna-header-title,
+.dna-header-title-sub {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+// Container for program-icon
+.dna-header-icon {
+    width: $dna-header-icon-size;
+    height: $dna-header-icon-size;
+    margin-right: $dna-header-icon-margin-right;
+}
+
+.dna-header-breadcrumb {
+    display: block;
+    max-width: 100%;
+    // Offset for invisible touch-area and outline
+    margin-left: -$dna-padding-base-horizontal;
+    padding: .1rem;
+}
+
+// Schriften
+.dna-header-title,
+.dna-header-title-sub {
+    font-family: $font-family-base;
+    color: $dna-text-D;
+    line-height: $line-height-base;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.dna-header-title {
+    font-size: 1.8rem;
+    margin: .1rem 0;
+}
+
+.dna-header-title-sub {
+    font-size: 1.4rem;
+}
+
+//## Responsive Layout SM - XL
+// Layout for sizes from SM
+
+@include media-breakpoint-up(sm) {
+    // Variables
+    $dna-header-icon-margin-right: $dna-spacer-1hx ;
+    $dna-header-icon-size: 4.8rem;
+
+    .dna-header-body {
+        padding: $dna-header-padding;
+        padding-left: $dna-page-padding-horizontal;
+    }
+    .dna-header-icon {
+        width: $dna-header-icon-size;
+        height: $dna-header-icon-size;
+        margin-left: -($dna-header-icon-size + $dna-spacer-1hx );
+        margin-right: $dna-spacer-1hx;
+    }
+
+    //If there is only one headline
+    .dna-header-title:last-child:first-child {
+        margin-top: 1rem;
+    }
+
+    .dna-header-title-sub {
+        margin: .2rem 0 1rem;
+    }
+}
+
+//## Fixed Header Layout
+.dna-header-fixed {
+    //Schattenkante
+    &::after {
+        @include dna-shadow-edge-bottom($right: $dna-header-xs-padding, $left: $dna-header-xs-padding);
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .dna-header-fixed {
+        background: $body-bg;
+        z-index: $dna-zindex-header;
+        position: fixed;
+        top: 0;
+        @supports (position: sticky) {
+            position: sticky;
+        }
+
+        .dna-header-body {
+            padding-bottom: 1.2rem;
+        }
+
+        //Schattenkante Positionsanpassung
+        &::after {
+            right: $dna-header-padding;
+            left: $dna-header-padding;
+        }
+    }
+}
+
+//## Responsive Layout XS - Extras
+// Layout for sizes up to SM
+
+@include media-breakpoint-down(xs) {
+    //App with Sidebar and Header: Make space for handle of sidebar
+    datev-sidebar + .dna-header,
+    datev-sidebar + .dna-page {
+        .dna-header-body {
+            padding-left: $dna-header-xs-padding-left;
+        }
+    }
+}

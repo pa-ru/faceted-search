@@ -1,0 +1,464 @@
+//
+// DNA - Inputs
+// --------------------------------------------------
+@import "variables";
+@import "bootstrap/mixins";
+
+// Grid in forms
+// Gutter-width wird verringert um kleinere Abstände zwischen Form-Elementen zu erhalten
+
+$dna-grid-form-margin: ($dna-grid-form-gutter-width / 2); //.6rem;
+
+.form-row {
+    margin-left: -$dna-grid-form-margin;
+    margin-right: -$dna-grid-form-margin;
+
+    > .col,
+    > [class*="col-"] {
+        padding-left: $dna-grid-form-margin;
+        padding-right: $dna-grid-form-margin;
+    }
+
+    .dna-message-provider {
+        left: ($dna-message-provider-left + $dna-grid-form-margin);
+    }
+}
+
+label {
+    color: $dna-label-color;
+    font-size: $font-size-base;
+    font-weight: normal;
+    margin-bottom: $label-margin-bottom; // overwrite bs, since there is no bootstrap-variable available
+}
+
+// Labelvarianten
+.col-form-label {
+    margin-bottom: .2rem;
+
+    @include media-breakpoint-up(sm) {
+        margin-bottom: 0;
+    }
+}
+
+// optional-Kennzeichnung
+label {
+    &.optional::after {
+        content: 'optional';
+        font-style: italic;
+        color: $dna-text-A;
+        margin-left: $dna-spacer-hx;
+    }
+}
+
+// Common form controls
+//
+// Shared size and type resets for form controls. Apply `.dna-form-control` to any
+// of the following form controls:
+//
+// select
+// textarea
+// input[type="text"]
+// input[type="password"]
+// input[type="datetime"]
+// input[type="datetime-local"]
+// input[type="date"]
+// input[type="month"]
+// input[type="time"]
+// input[type="week"]
+// input[type="number"]
+// input[type="email"]
+// input[type="url"]
+// input[type="search"]
+// input[type="tel"]
+
+// Mixin Border, Hover, Fokus
+@mixin form-control-states($border-color, $hover-color: $border-color, $focus-color: $border-color) {
+    box-shadow: 0 $input-border-width $border-color;
+    &:hover:not([readonly]):not([disabled]) {
+        box-shadow: 0 .2rem $hover-color;
+    }
+    &:focus {
+        outline: .1rem solid $focus-color;
+        box-shadow: 0 .2rem $focus-color !important; //important, otherwise to many overwrites
+    }
+}
+
+.form-control {
+    outline: $dna-border-width-base solid $dna-input-outline-color;
+    border: none;
+    transition: all $dna-transition-duration-short;
+    height: $input-height;
+
+    @include form-control-states($border-color: $input-border-color, $hover-color: $dna-mittelgruen, $focus-color: $input-focus-border-color);
+
+    &:focus {
+        outline-offset: 0;
+    }
+
+    &[disabled] {
+        box-shadow: 0 .1rem $dna-input-border-disabled;
+        color: $dna-input-color-disabled;
+        outline: none;
+    }
+
+    &.required:not([readonly]):not([readonly="true"]):not([disabled]) {
+        background-color: $dna-input-bg-required;
+    }
+}
+
+textarea.form-control {
+    height: auto;
+}
+
+//Message-provider & Feedback states
+.dna-message-provider {
+    display: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    position: absolute;
+    left: $dna-message-provider-left;
+    top: $dna-message-provider-top;
+    z-index: 10;
+    outline: none;
+    background-repeat: no-repeat;
+}
+
+.has-success,
+.has-info,
+.has-warning,
+.has-error {
+    position: relative;
+
+    label {
+        color: $dna-label-color;
+    }
+
+    .dna-message-provider {
+        display: block;
+    }
+}
+
+.has-success {
+    .form-control {
+        @include form-control-states($dna-state-success-border);
+    }
+}
+
+.has-info {
+    .form-control {
+        @include form-control-states($dna-state-info-border);
+    }
+
+    .dna-message-provider {
+        @include svg-fi-information-16();
+    }
+}
+
+.has-warning {
+    .form-control {
+        @include form-control-states($dna-state-warning-border);
+    }
+
+    .dna-message-provider {
+        @include svg-fi-warnung-16();
+    }
+}
+
+.has-error {
+    .form-control {
+        @include form-control-states($dna-state-danger-border);
+    }
+
+    .dna-message-provider {
+        @include svg-fi-fehler-16();
+    }
+}
+
+// Selects
+select.form-control {
+    padding-top: $dna-padding-base-vertical - .2rem;
+    padding-bottom: $dna-padding-base-vertical - .1rem;
+    padding-left: .4rem;
+    padding-right: 1.2rem;
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        /* IE10+11 CSS styles go here */
+        padding-top: $dna-padding-base-vertical - .3rem;
+        padding-bottom: $dna-padding-base-vertical - .2rem;
+        padding-left: .6rem;
+        padding-right: .6rem;
+    }
+}
+
+.dna-select-light {
+    background: transparent;
+    outline: none;
+    padding-right: 2rem;
+    @include dna-label-interactive($color: $dna-dunkelgruen);
+
+    //Remove default arrow
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    //Add custom arrow
+    @include svg-sli-pfeil-runter();
+    background-size: 1.4rem;
+    background-position: unquote("calc(100% - .8rem)") center;
+
+    option {
+        color: $dna-text;
+
+        &[selected] {
+            background-color: $dna-selected-bg;
+        }
+    }
+}
+
+//==// Checkbox & Radiobutton
+//.checkbox,
+//.radio,
+.form-check {
+    margin: 0;
+    padding: 0;
+
+    &:not(:last-child) {
+        margin-bottom: .2rem;
+    }
+}
+
+.form-check-label {
+    display: flex;
+    min-height: $dna-btn-height-base;
+    margin: 0; //reset;
+    color: $dna-text;
+    outline: 0 solid $dna-focus; // so transition for fokus starts with the right color
+    padding: $dna-padding-borderless-vertical $dna-padding-base-horizontal $dna-padding-borderless-vertical 0;
+
+    //Control-"Icon"
+    &::before {
+        content: "";
+        box-sizing: content-box; //so that border goes outside of icon - no resizing necessary
+        flex: 0 0 auto;
+        width: $dna-checkmark-size;
+        height: $dna-checkmark-size;
+        background-color: $input-bg;
+        border: .1rem solid $dna-border-lightest;
+    }
+    transition: all ease-in-out $dna-transition-duration-short;
+}
+
+.form-check-input {
+    position: absolute;
+    opacity: 0; // Browser-Standard überschreiben
+    margin: 0;
+
+    &:hover + label {
+        background-color: $dna-hover-bg;
+    }
+    &:active + label {
+        background-color: $dna-pressed-bg;
+    }
+    &:focus + label {
+        outline: .1rem solid $dna-focus;
+    }
+}
+
+//Disabled
+.form-check-input:disabled,
+.disabled .form-check-input,
+.disabled.required .form-check-input {
+    & + label {
+        pointer-events: none;
+        background-color: transparent;
+        color: $dna-text-A;
+        cursor: default;
+    }
+
+    //kein hover/active
+    pointer-events: none;
+    &:active + label,
+    &:hover + label {
+        background-color: transparent;
+    }
+
+    //kein Fokus
+    &:focus + label {
+        outline: none;
+    }
+}
+
+//readonly
+.form-check.readonly {
+    pointer-events: none;
+}
+
+//== Icons
+
+//Checkbox-"Icon" unchecked
+.form-check-input[type="checkbox"] + label::before {
+    margin: .1rem .6rem .1rem .4rem;
+    border-bottom-color: $dna-border-dark;
+    border-radius: .4rem;
+    background-clip: content-box;
+}
+
+//Checkbox-Icon checked
+.form-check-input[type="checkbox"]:checked,
+.checked .form-check-input[type="checkbox"] {
+    & + label::before {
+        @include svg-sli-checkmark;
+    }
+}
+
+//Radio-"Icon" unchecked
+.form-check-input[type="radio"] + label::before {
+    box-shadow: 0 $input-border-width $dna-border-dark;
+    margin-left: .3rem;
+    margin-right: .5rem;
+    border-radius: 50%;
+}
+
+//Radio-Icon checked
+.form-check-input[type="radio"]:checked,
+.checked .form-check-input[type="radio"] {
+    & + label::before {
+        @include svg-sli-radiobutton;
+    }
+}
+
+//Check/Radio-Icon disabled
+.form-check-input:disabled, //attribute disabled at the input
+.disabled .form-check-input, //class disabled at the parent
+.readonly .form-check-input { //class readonly at the parent
+    & + label::before {
+        @include icon-disabled();
+        background-color: rgba($dna-mittelgrau-B, 40%/100.0%); //$input-disabled-bg; // Use "old" variable once icon is svg in templateg;
+    }
+}
+
+//Check-Icon disabled
+.form-check-input[type="checkbox"]:disabled,
+.disabled .form-check-input[type="checkbox"],
+.readonly .form-check-input[type="checkbox"] {
+    & + label::before {
+        border: rgba(black, 20%/100.0%) .1rem solid; // $dna-border-lightest-disabled; // Use "old" variable once icon is svg in template
+        border-bottom-color: $dna-border-light;
+    }
+}
+
+//== Checkbox-Besonderheiten
+// Pflichtfeld
+.required input[type="checkbox"] {
+    & + label {
+        background: $dna-input-bg-required;
+    }
+    &:hover + label {
+        background-color: mix( black, $dna-input-bg-required, 6% );
+    }
+    &:active + label {
+        background-color: mix( black, $dna-input-bg-required, 9% );
+    }
+}
+
+.form-check {
+    //Message Provider
+    .dna-message-provider {
+        top: -.4rem;
+        left: -.7rem;
+    }
+    &.has-error {
+        input[type="checkbox"] + label::before {
+            border-bottom-color: $dna-state-danger-border;
+        }
+        input[type="checkbox"]:focus + label {
+            outline-color: $dna-state-danger-border;
+        }
+    }
+    &.has-warning {
+        input[type="checkbox"] + label::before {
+            border-bottom-color: $dna-state-warning-border;
+        }
+        input[type="checkbox"]:focus + label {
+            outline-color: $dna-state-warning-border;
+        }
+    }
+    &.has-info {
+        input[type="checkbox"] + label::before {
+            border-bottom-color: $dna-state-info-border;
+        }
+        input[type="checkbox"]:focus + label {
+            outline-color: $dna-state-info-border;
+        }
+    }
+}
+
+//== Radiobutton-Group
+.radio-group {
+    margin: 0 -.2rem;
+    padding: .2rem;
+
+    &.has-error {
+        outline: .1rem solid $dna-state-danger-border;
+    }
+    &.has-warning {
+        outline: .1rem solid $dna-state-warning-border;
+    }
+    &.has-info {
+        outline: .1rem solid $dna-state-info-border;
+    }
+    &.required {
+        background: $dna-input-bg-required;
+    }
+    &.disabled {
+        background: transparent;
+    }
+}
+
+//== Placeholder-Text
+.form-control {
+    // Firefox
+    &::-moz-placeholder {
+        color: $dna-text-color-placeholder;
+        font-style: italic;
+    }
+
+    // Internet Explorer 10+
+    &:-ms-input-placeholder {
+        color: $dna-text-color-placeholder;
+        font-style: italic;
+    }
+
+    // Safari and Chrome
+    &::-webkit-input-placeholder {
+        color: $dna-text-color-placeholder;
+        font-style: italic;
+    }
+
+    // Standard Pseudo-class
+    &:placeholder-shown {
+        color: $dna-text-color-placeholder;
+        font-style: italic;
+    }
+}
+
+//== Text Selection Color
+::-moz-selection {
+    color: $dna-text;
+    background: $dna-hellgruen-C;
+}
+
+::selection { // Firefox
+    color: $dna-text;
+    background: $dna-hellgruen-C;
+}
+
+// Horizontal forms
+//
+// Horizontal forms are built on grid classes and allow you to create forms with
+// labels on the left and inputs on the right.
+
+.form-horizontal {
+    .form-control {
+        margin-bottom: $form-group-margin-bottom;
+    }
+}

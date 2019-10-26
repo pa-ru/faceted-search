@@ -1,0 +1,79 @@
+{
+  "_from": "@datev/webapp-theme-crick@^3.0.0",
+  "_id": "@datev/webapp-theme-crick@3.0.2",
+  "_inBundle": false,
+  "_integrity": "sha1-I+eZaxHmKtO1TF9mwkqEUc1V99k=",
+  "_location": "/@datev/webapp-theme-crick",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "@datev/webapp-theme-crick@^3.0.0",
+    "name": "@datev/webapp-theme-crick",
+    "escapedName": "@datev%2fwebapp-theme-crick",
+    "scope": "@datev",
+    "rawSpec": "^3.0.0",
+    "saveSpec": null,
+    "fetchSpec": "^3.0.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://repo.prod.datev.de/artifactory/api/npm/npm-quarantaene-mirror/@datev/webapp-theme-crick/-/@datev/webapp-theme-crick-3.0.2.tgz",
+  "_shasum": "23e7996b11e62ad3b54c5f66c24a8451cd55f7d9",
+  "_spec": "@datev/webapp-theme-crick@^3.0.0",
+  "_where": "D:\\src\\temp\\test-it",
+  "author": {
+    "name": "DATEV eG",
+    "email": "webtechnology@datev.de",
+    "url": "https://www.datev.de"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "DATEV webapp theme crick",
+  "devDependencies": {
+    "@datev/svg-sprite": "^1.5.0",
+    "autoprefixer": "^9.6.0",
+    "del": "^4.1.1",
+    "gulp": "^4.0.0",
+    "gulp-less": "^4.0.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-watch": "^5.0.1",
+    "gulp.spritesmith": "^6.9.0",
+    "merge-stream": "^1.0.1",
+    "ng-inline-svg": "^8.5.1",
+    "node-sass": "^4.12.0",
+    "vinyl-buffer": "^1.0.1"
+  },
+  "keywords": [
+    "bootstrap",
+    "bootstrap4",
+    "dna-theme",
+    "theme",
+    "sass",
+    "scss",
+    "css",
+    "ria"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "name": "@datev/webapp-theme-crick",
+  "repository": {
+    "type": "git",
+    "url": "https://git.zd.datev.de/webappcommunity/frontend/webapp-theme-crick.git"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "gulp": "gulp",
+    "sprite:icons": "gulp sprite:icons",
+    "sprite:svgs": "svg-sprite --config sprite-config.json src/assets/svgs/**/*svg",
+    "start": "npm run build",
+    "transpile:scss": "gulp transpile:scss",
+    "watch": "gulp watch"
+  },
+  "version": "3.0.2"
+}

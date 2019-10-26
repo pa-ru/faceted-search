@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { SEARCH_RESULT_DATA } from './data/searchResultData';
+import { SEARCH_RESULT_DATA_2 } from './data/searchResultData2';
+
 
 @Injectable()
 export class FakeBackendHttpInterceptor implements HttpInterceptor {
@@ -11,7 +14,7 @@ export class FakeBackendHttpInterceptor implements HttpInterceptor {
         return of(null)
             .pipe(mergeMap(handleRoute))
             .pipe(materialize())
-            .pipe(delay(500))
+            .pipe(delay(150))
             .pipe(dematerialize());
 
         function handleRoute() {
@@ -27,7 +30,7 @@ export class FakeBackendHttpInterceptor implements HttpInterceptor {
 
         // route functions
         function search() {
-            return of(new HttpResponse({ status: 200, body: { id: "1" } }));
+            return of(new HttpResponse({ status: 200, body: new Date().getSeconds()%2 ? SEARCH_RESULT_DATA : SEARCH_RESULT_DATA_2 }));
         }
     }
 }
