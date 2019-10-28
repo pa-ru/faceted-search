@@ -6,8 +6,6 @@ import { SingleSelectionSearchFacetComponent } from './single-selection-search-f
 import { SearchInputComponent } from './search-input/search-input.component';
 import { CollapseModule} from 'ngx-bootstrap';
 
-
-
 @NgModule({
   declarations: [
     SearchOptionsPanelComponent,

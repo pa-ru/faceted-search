@@ -128,6 +128,41 @@
           }
         }
       }
+    },
+    "@duo/search": {
+      "projectType": "library",
+      "root": "projects/duo/search",
+      "sourceRoot": "projects/duo/search/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/duo/search/tsconfig.lib.json",
+            "project": "projects/duo/search/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/duo/search/src/test.ts",
+            "tsConfig": "projects/duo/search/tsconfig.spec.json",
+            "karmaConfig": "projects/duo/search/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/duo/search/tsconfig.lib.json",
+              "projects/duo/search/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "faceted-search"

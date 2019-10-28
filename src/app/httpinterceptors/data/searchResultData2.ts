@@ -1,4 +1,4 @@
-import { SearchResponse } from 'src/app/model';
+import { SearchResponse } from '@duo/search/lib/model';
 
 export const SEARCH_RESULT_DATA_2: SearchResponse = {
     "options": {

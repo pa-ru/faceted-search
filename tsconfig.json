@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@duo/search": [
+        "dist/duo/search"
+      ],
+      "@duo/search/*": [
+        "dist/duo/search/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

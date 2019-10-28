@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SearchFacet } from 'src/app/model';
+import { SearchFacet } from '../model';
 
 @Component({
   selector: 'app-single-selection-search-facet',

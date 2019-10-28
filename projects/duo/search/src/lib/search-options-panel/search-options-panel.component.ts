@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { SearchResponse } from 'src/app/model';
+import { SearchResponse } from '../model';
 
 @Component({
   selector: 'app-search-options-panel',
