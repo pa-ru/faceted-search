@@ -10,6 +10,8 @@ import { SearchResponse } from '../model';
 })
 export class SearchOptionsPanelComponent implements OnInit {
 
+  showRawData: boolean = false;
+
   $searchResponse: Observable<SearchResponse>;
 
   constructor(private http: HttpClient) {
@@ -19,5 +21,9 @@ export class SearchOptionsPanelComponent implements OnInit {
   ngOnInit() {
     this.$searchResponse = this.http.get<SearchResponse>('/search/');
   } 
+
+  onShowRawData(){
+    this.showRawData = !this.showRawData;
+  }
 
 }
